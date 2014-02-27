@@ -4,9 +4,6 @@
 #
 # Normal rules
 #
-.*
-*.o
-*.o.*
 Makefile.in
 configure
 aclocal.m4
@@ -24,6 +21,9 @@ sdl-config
 SDL.spec
 SDL.qpg
 .DS_Store
+.*
+*.o
+*.o.*
 *.patch
 *.elf
 *.bin
@@ -54,5 +54,6 @@ cscope.*
 ncscope.*
 
 *.orig
+*.rej
 *~
 \#*#
