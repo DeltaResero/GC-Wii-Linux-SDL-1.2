@@ -49,7 +49,7 @@ extern "C" {
 /*@}*/
 
 /** Event enumerations */
-typedef enum {
+typedef enum SDL_Events {
        SDL_NOEVENT = 0,			/**< Unused (do not remove) */
        SDL_ACTIVEEVENT,			/**< Application loses/gains visibility */
        SDL_KEYDOWN,			/**< Keys pressed */
@@ -85,7 +85,7 @@ typedef enum {
 /** @name Predefined event masks */
 /*@{*/
 #define SDL_EVENTMASK(X)	(1<<(X))
-typedef enum {
+typedef enum SDL_EventMasks {
 	SDL_ACTIVEEVENTMASK	= SDL_EVENTMASK(SDL_ACTIVEEVENT),
 	SDL_KEYDOWNMASK		= SDL_EVENTMASK(SDL_KEYDOWN),
 	SDL_KEYUPMASK		= SDL_EVENTMASK(SDL_KEYUP),
