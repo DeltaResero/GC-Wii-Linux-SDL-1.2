@@ -364,7 +364,10 @@ static char *get_progname(void)
 		}
 		fclose(fp);
 	}
-	return(progname);
+	if (progname)
+		return(progname);
+	else
+		return SDL_strdup ("SDL");
 #elif defined(__NetBSD__)
 	return getprogname();
 #else
