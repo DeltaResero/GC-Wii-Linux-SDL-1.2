@@ -67,10 +67,12 @@ SDL_bool GC_Test(_THIS)
 
 SDL_bool GC_Available(void)
 {
-	if (access("/sys/bus/of_platform/drivers/gcn-vifb", 0) == 0)
-		return SDL_TRUE;
-
-	return SDL_FALSE;
+	if (access("/sys/bus/platform/drivers/gcn-vifb", 0) == 0)
+		return SDL_TRUE; /* (For kernels 2.6.36 and newer) */
+	else if (access("/sys/bus/of_platform/drivers/gcn-vifb", 0) == 0)
+		return SDL_TRUE; /* (For kernels prior to 2.6.36) */
+	else
+		return SDL_FALSE;
 }
 
 /*
