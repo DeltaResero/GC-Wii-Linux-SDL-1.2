@@ -34,6 +34,10 @@
 #include <asm/page.h>		/* For definition of PAGE_SIZE */
 #endif
 
+#ifdef SDL_VIDEO_DRIVER_GC
+#include "SDL_fbgc.h"
+#endif
+
 #include <linux/vt.h>
 
 #include "SDL_video.h"
@@ -271,6 +275,11 @@ static SDL_VideoDevice *FB_CreateDevice(int devindex)
 	this->PumpEvents = FB_PumpEvents;
 
 	this->free = FB_DeleteDevice;
+
+#ifdef SDL_VIDEO_DRIVER_GC
+	if (GC_Available())
+		GC_CreateDevice(this);
+#endif
 
 	return this;
 }
@@ -783,6 +792,11 @@ static int FB_VideoInit(_THIS, SDL_PixelFormat *vformat)
 			break;
 		}
 	}
+
+#ifdef SDL_VIDEO_DRIVER_GC
+	if (GC_Test(this))
+		GC_Init(this, vformat);
+#endif
 
 	if (shadow_fb) {
 		shadow_mem = (char *)SDL_malloc(mapped_memlen);
