@@ -272,6 +272,11 @@ static SDL_VideoDevice *FB_CreateDevice(int devindex)
 
 	this->free = FB_DeleteDevice;
 
+#ifdef SDL_VIDEO_DRIVER_GC
+	if (GC_Available(this))
+		GC_CreateDevice(this);
+#endif
+
 	return this;
 }
 
@@ -783,6 +788,11 @@ static int FB_VideoInit(_THIS, SDL_PixelFormat *vformat)
 			break;
 		}
 	}
+
+#ifdef SDL_VIDEO_DRIVER_GC
+	if (GC_Test(this))
+		GC_Init(this, vformat);
+#endif
 
 	if (shadow_fb) {
 		shadow_mem = (char *)SDL_malloc(mapped_memlen);

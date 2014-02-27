@@ -106,6 +106,12 @@ struct SDL_PrivateVideoData {
 
 	void (*wait_vbl)(_THIS);
 	void (*wait_idle)(_THIS);
+#ifdef SDL_VIDEO_DRIVER_GC
+	void (*UpdateRect) (_THIS, SDL_Rect * rect, int pitch);
+	int back_page;
+	int page_offset;
+	int flip_pending;
+#endif
 };
 /* Old variable names */
 #define console_fd		(this->hidden->console_fd)
@@ -147,6 +153,11 @@ struct SDL_PrivateVideoData {
 #define screen_palette		(this->hidden->screen_palette)
 #define wait_vbl		(this->hidden->wait_vbl)
 #define wait_idle		(this->hidden->wait_idle)
+#ifdef SDL_VIDEO_DRIVER_GC
+#define back_page		(this->hidden->back_page)
+#define page_offset		(this->hidden->page_offset)
+#define flip_pending		(this->hidden->flip_pending)
+#endif
 
 /* Accelerator types that are supported by the driver, but are not
    necessarily in the kernel headers on the system we compile on.
