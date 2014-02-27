@@ -1,20 +1,30 @@
-syntax:glob
+# NOTE! Please use 'git ls-files -i --exclude-standard'
+# command after changing this file, to see if there are
+# any tracked files which get ignored after the change.
+#
+# Normal rules
+#
 aclocal.m4
 autom4te*
+build-deps
+build/*
+configure
 config.cache
 config.log
 config.status
-configure
+depcomp
+install-sh
+include/SDL_config.h
 libtool
 Makefile
+Makefile.in
+mkinstalldirs
+missing
 sdl-config
 SDL.spec
-SDL.qpg
-build
-build-deps
-.DS_Store
 sdl.pc
-include/SDL_config.h
+SDL.qpg
+syntax:glob
 test/aclocal.m4
 test/autom4te*
 test/config.cache
@@ -60,3 +70,40 @@ test/testcursor
 test/testloadso
 test/*.exe
 test/*.dSYM
+.DS_Store
+.*
+*.o
+*.o.*
+*.patch
+*.elf
+*.bin
+*.gz
+*.bz2
+*.lzma
+*.xz
+*.lzo
+
+#
+# Debian directory (make deb-pkg)
+#
+/debian/
+
+# git files that we don't want to ignore even it they are dot-files
+#
+!.gitignore
+
+# stgit generated dirs
+patches-*
+
+# quilt's files
+patches
+series
+
+# cscope files
+cscope.*
+ncscope.*
+
+*.orig
+*.rej
+*~
+\#*#
