@@ -806,14 +806,19 @@ static int FB_VideoInit(_THIS, SDL_PixelFormat *vformat)
 		} 
 	}
 
-	/* Enable mouse and keyboard support */
-	if ( FB_OpenKeyboard(this) < 0 ) {
-		FB_VideoQuit(this);
-		return(-1);
-	}
+	if (!SDL_getenv("SDL_NOKBD"))
+	  {
+	    fprintf(stderr, "init kbd.\n");
+	    /* Enable mouse and keyboard support */
+	    if ( FB_OpenKeyboard(this) < 0 ) {
+	      FB_VideoQuit(this);
+	      return(-1);
+	    }
+	  }
 	if ( FB_OpenMouse(this) < 0 ) {
 		const char *sdl_nomouse;
 
+		fprintf(stderr, "init mouse failed.\n");
 		sdl_nomouse = SDL_getenv("SDL_NOMOUSE");
 		if ( ! sdl_nomouse ) {
 			SDL_SetError("Unable to open mouse");
@@ -1023,7 +1028,6 @@ static SDL_Surface *FB_SetVideoMode(_THIS, SDL_Surface *current,
 
 	/* Set the terminal into graphics mode */
 	if ( FB_EnterGraphicsMode(this) < 0 ) {
-		return(NULL);
 	}
 
 	/* Restore the original palette */
@@ -1933,7 +1937,7 @@ static void FB_VideoQuit(_THIS)
 			SDL_memcpy(flip_address[0], flip_address[1], this->screen->pitch * this->screen->h);
 		}
 
-		if ( !dontClearPixels && this->screen->pixels && FB_InGraphicsMode(this) ) {
+	  if ( !dontClearPixels && this->screen->pixels && (FB_InGraphicsMode(this) || SDL_getenv("SDL_NOKBD")) ) {
 #if defined(__powerpc__) || defined(__ia64__)	/* SIGBUS when using SDL_memset() ?? */
 			Uint8 *rowp = (Uint8 *)this->screen->pixels;
 			int left = this->screen->pitch*this->screen->h;
@@ -1982,7 +1986,7 @@ static void FB_VideoQuit(_THIS)
 		}
 
 		/* Restore the original video mode and palette */
-		if ( FB_InGraphicsMode(this) ) {
+		if ( FB_InGraphicsMode(this) || SDL_getenv("SDL_NOKBD") ) {
 			FB_RestorePalette(this);
 			ioctl(console_fd, FBIOPUT_VSCREENINFO, &saved_vinfo);
 		}
