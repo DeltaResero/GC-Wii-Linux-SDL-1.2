@@ -824,6 +824,32 @@ CheckFBCON()
     fi
 }
 
+dnl Find GC
+CheckGC()
+{
+    AC_ARG_ENABLE(video-gc,
+[  --enable-video-gc	use GameCube video driver [default=yes]],
+                  , enable_video_gc=yes)
+    if test x$enable_video = xyes -a x$enable_video_gc = xyes; then
+        AC_MSG_CHECKING(for Nintendo GameCube Linux support)
+        video_gc=no
+        AC_TRY_COMPILE([
+         #include <linux/fb.h>
+         #include <linux/kd.h>
+         #include <linux/keyboard.h>
+        ],[
+        ],[
+        video_gc=yes
+        ])
+        AC_MSG_RESULT($video_gc)
+        if test x$video_gc = xyes; then
+            CFLAGS="$CFLAGS -DENABLE_GC"
+            VIDEO_SUBDIRS="$VIDEO_SUBDIRS gc"
+            VIDEO_DRIVERS="$VIDEO_DRIVERS gc/libvideo_gc.la"
+        fi
+    fi
+}
+
 dnl Find DirectFB
 CheckDirectFB()
 {
@@ -1877,6 +1903,7 @@ case "$target" in
         CheckNANOX
         CheckDGA
         CheckFBCON
+        CheckGC 
         CheckDirectFB
         CheckPS2GS
         CheckGGI
@@ -2901,6 +2928,7 @@ src/video/XFree86/Xinerama/Makefile
 src/video/XFree86/Xv/Makefile
 src/video/XFree86/Xxf86dga/Makefile
 src/video/XFree86/Xxf86vm/Makefile
+src/video/gc/Makefile
 src/events/Makefile
 src/joystick/Makefile
 src/joystick/amigaos/Makefile

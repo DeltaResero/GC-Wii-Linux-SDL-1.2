@@ -22,7 +22,7 @@
 
 #ifdef SAVE_RCSID
 static char rcsid =
- "@(#) $Id$";
+ "@(#) $Id: SDL_video.c,v 1.1.1.1 2005/06/23 18:18:30 herraa1 Exp $";
 #endif
 
 /* The high-level video driver subsystem */
@@ -56,6 +56,9 @@ static VideoBootStrap *bootstrap[] = {
 #endif
 #ifdef ENABLE_QTOPIA
 	&Qtopia_bootstrap,
+#endif
+#ifdef ENABLE_GC
+	&GC_bootstrap,
 #endif
 #ifdef ENABLE_FBCON
 	&FBCON_bootstrap,

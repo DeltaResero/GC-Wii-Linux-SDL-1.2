@@ -22,7 +22,7 @@
 
 #ifdef SAVE_RCSID
 static char rcsid =
- "@(#) $Id$";
+ "@(#) $Id: SDL_sysvideo.h,v 1.1.1.1 2005/06/23 18:18:27 herraa1 Exp $";
 #endif
 
 #ifndef _SDL_sysvideo_h
@@ -340,6 +340,9 @@ extern VideoBootStrap NX_bootstrap;
 #endif
 #ifdef ENABLE_FBCON
 extern VideoBootStrap FBCON_bootstrap;
+#endif
+#ifdef ENABLE_GC
+extern VideoBootStrap GC_bootstrap;
 #endif
 #ifdef ENABLE_DIRECTFB
 extern VideoBootStrap DirectFB_bootstrap;
