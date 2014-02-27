@@ -31,6 +31,7 @@ NASM	= @NASM@ @NASMFLAGS@
 AR	= @AR@
 RANLIB	= @RANLIB@
 WINDRES	= @WINDRES@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 
 TARGET  = libSDL.la
 SOURCES = @SOURCES@
@@ -50,6 +51,22 @@ LT_CURRENT  = @LT_CURRENT@
 LT_RELEASE  = @LT_RELEASE@
 LT_REVISION = @LT_REVISION@
 LT_LDFLAGS  = -no-undefined -rpath $(DESTDIR)$(libdir) -release $(LT_RELEASE) -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+am__v_lt_0 = --silent
+AM_V_CC = $(am__v_CC_$(V))
+am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
+am__v_CC_0 = @echo "  CC    " $@;
+AM_V_AR = $(am__v_AR_$(V))
+am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
+am__v_AR_0 = @echo "  AR    " $@;
+AM_V_RANLIB = $(am__v_RANLIB_$(V))
+am__v_RANLIB_ = $(am__v_RANLIB_$(AM_DEFAULT_VERBOSITY))
+am__v_RANLIB_0 = @echo "  RANLIB" $@;
+AM_V_CCLD = $(am__v_CCLD_$(V))
+am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
+am__v_CCLD_0 = @echo "  CCLD  " $@;
 
 all: $(srcdir)/configure Makefile $(objects) $(objects)/$(TARGET) $(objects)/$(SDLMAIN_TARGET)
 
@@ -72,7 +89,7 @@ depend:
 include $(depend)
 
 $(objects)/$(TARGET): $(OBJECTS)
-	$(LIBTOOL) --mode=link $(CC) -o $@ $^ $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
+	$(AM_V_CCLD)$(LIBTOOL) $(AM_V_lt) --mode=link $(CC) -o $@ $^ $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
 
 $(objects)/$(SDLMAIN_TARGET): $(SDLMAIN_OBJECTS)
 	$(LIBTOOL) --mode=link $(CC) -o $@ $^ $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS) $(SDLMAIN_LDFLAGS)
