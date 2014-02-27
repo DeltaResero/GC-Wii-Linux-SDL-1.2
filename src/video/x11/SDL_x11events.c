@@ -1108,7 +1108,13 @@ SDLKey X11_TranslateKeycode(Display *display, KeyCode kc)
 	KeySym xsym;
 	SDLKey key;
 
-	xsym = XKeycodeToKeysym(display, kc, 0);
+//	if ( xkey ) {
+//		/* Until we handle the IM protocol, use XLookupString() */
+//		unsigned char keybuf[32];
+//		XLookupString(xkey, keybuf, sizeof(keybuf), &xsym, NULL);
+//	} else {
+		xsym = XKeycodeToKeysym(display, kc, 0);
+//	}
 #ifdef DEBUG_KEYS
 	fprintf(stderr, "Translating key code %d -> 0x%.4x\n", kc, xsym);
 #endif
