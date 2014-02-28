@@ -1,0 +1,9 @@
+This is the porting of 1.2.12 version of SDL to the GameCube Linux.
+
+And this is how I build it these days:
+
+# ./autogen.sh
+# ./configure --without-x --disable-video-x11 \
+              --disable-video-fbcon --disable-video-aalib \
+              --disable-video-opengl
+
