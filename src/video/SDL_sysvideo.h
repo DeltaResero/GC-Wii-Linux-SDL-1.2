@@ -338,6 +338,9 @@ extern VideoBootStrap Qtopia_bootstrap;
 #if SDL_VIDEO_DRIVER_WSCONS
 extern VideoBootStrap WSCONS_bootstrap;
 #endif
+#if SDL_VIDEO_DRIVER_GC
+extern VideoBootStrap GC_bootstrap;
+#endif
 #if SDL_VIDEO_DRIVER_FBCON
 extern VideoBootStrap FBCON_bootstrap;
 #endif
