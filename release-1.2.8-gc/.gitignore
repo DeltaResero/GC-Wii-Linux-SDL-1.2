@@ -1,0 +1,58 @@
+# NOTE! Please use 'git ls-files -i --exclude-standard'
+# command after changing this file, to see if there are
+# any tracked files which get ignored after the change.
+#
+# Normal rules
+#
+.*
+*.o
+*.o.*
+Makefile.in
+configure
+aclocal.m4
+config.log
+config.cache
+autom4te*
+depcomp
+mkinstalldirs
+missing
+install-sh
+libtool
+config.status
+Makefile
+sdl-config
+SDL.spec
+SDL.qpg
+.DS_Store
+*.patch
+*.elf
+*.bin
+*.gz
+*.bz2
+*.lzma
+*.xz
+*.lzo
+
+#
+# Debian directory (make deb-pkg)
+#
+/debian/
+
+# git files that we don't want to ignore even it they are dot-files
+#
+!.gitignore
+
+# stgit generated dirs
+patches-*
+
+# quilt's files
+patches
+series
+
+# cscope files
+cscope.*
+ncscope.*
+
+*.orig
+*~
+\#*#

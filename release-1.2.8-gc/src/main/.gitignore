@@ -1,0 +1,9 @@
+Makefile.in
+SDL_main.c
+SDLMain.h
+SDLMain.m
+Makefile
+.libs
+*.o
+*.lo
+*.la
