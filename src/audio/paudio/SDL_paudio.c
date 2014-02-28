@@ -44,7 +44,7 @@
 /* A conflict within AIX 4.3.3 <sys/> headers and probably others as well.
  * I guess nobody ever uses audio... Shame over AIX header files.  */
 #include <sys/machine.h>
-#undef BIG_ENDIAN
+// #undef BIG_ENDIAN
 #include <sys/audio.h>
 
 /* The tag name used by paud audio */
